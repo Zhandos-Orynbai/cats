@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Shelter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #ffcc00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 100;
+            animation: fadeOut 2s ease-in-out 3s forwards;
+        }
+        .intro h1 {
+            font-size: 50px;
+            margin: 0;
+        }
+        .intro img {
+            width: 100px;
+            height: auto;
+        }
+        .content {
+            position: relative;
+            top: 100vh;
+            animation: slideUp 2s ease-in-out 3s forwards;
+        }
+        .catalog {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .catalog h2 {
+            font-size: 36px;
+            margin-top: 0;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: scale(1.1);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 100%, 0 100%, 0 25%);
+        }
+        .card h3 {
+            margin: 10px 0;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        @keyframes slideUp {
+            to { transform: translateY(-100vh); }
+        }
+        html, body {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="intro">
+        <img src="logo.png" alt="Shelter Logo">
+        <h1>Welcome to Cat Haven</h1>
+    </div>
+    <div class="content">
+        <div class="catalog">
+            <h2>🐱 Meet Our Cats 🐱</h2>
+            <div class="cards" id="catContainer"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Script loaded successfully!");
+            
+            const catNames = ["Mittens", "Whiskers", "Shadow", "Luna", "Simba", "Ginger", "Toby", "Bella", "Oscar", "Milo", "Cleo", "Felix", "Nala", "Salem", "Pumpkin", "Charlie", "Oreo"];
+            const catContainer = document.getElementById("catContainer");
+            
+            if (!catContainer) {
+                console.error("Element with ID 'catContainer' not found!");
+                return;
+            }
+            
+            for (let i = 1; i <= 17; i++) {
+                let card = document.createElement("div");
+                card.classList.add("card");
+                
+                let img = document.createElement("img");
+                img.src = `cats/cat${i}.jpg`;
+                img.alt = `Cat ${i}`;
+                img.onerror = function() { 
+                    console.warn(`Image cats/cat${i}.jpg not found, using placeholder.`); 
+                    this.src = "cats/placeholder.jpg"; 
+                };
+                
+                let name = document.createElement("h3");
+                name.textContent = catNames[i - 1] || `Cat ${i}`;
+                
+                card.appendChild(img);
+                card.appendChild(name);
+                catContainer.appendChild(card);
+            }
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 4000);
+
+            console.log("Cards added successfully!");
+        });
+    </script>
+</body>
+</html>
